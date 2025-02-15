@@ -1,7 +1,19 @@
-# compiled output
-/dist
-/node_modules
-/build
+# Node.js
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# Build outputs
+/frontend/dist
+/frontend/build
+/frontend/.next
+/frontend/.turbo
+/backend/dist
+/backend/build
+/backend/tmp
+/backend/cache
+/backend/logs
 
 # Logs
 logs
@@ -12,45 +24,51 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# OS
+# OS-specific
 .DS_Store
+Thumbs.db
 
-# Tests
+# Tests & Coverage
 /coverage
 /.nyc_output
 
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
+# IDEs & Editors
+.idea/
+.vscode/
 *.sublime-workspace
 
-# IDE - VSCode
-.vscode/*
+# Allow specific VSCode settings
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment variable files
+# dotenv environment files
 .env
 .env.development.local
 .env.test.local
 .env.production.local
 .env.local
+!backend/.env.example
+!frontend/.env.example
 
-# temp directory
+# Temporary files
 .temp
 .tmp
 
-# Runtime data
+# PIDs and runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
 
-# Diagnostic reports (https://nodejs.org/api/report.html)
+# Diagnostic reports
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Docker
+docker-compose.override.yml
+.docker/
+
+# Ignore Git inside subfolders
+/backend/.git
+/frontend/.git
