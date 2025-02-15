@@ -43,13 +43,6 @@ Thumbs.db
 !.vscode/launch.json
 !.vscode/extensions.json
 
-# dotenv environment files
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-!backend/.env.example
-!frontend/.env.example
 
 # Temporary files
 .temp
