@@ -1,10 +1,10 @@
-# Используем Node.js
+# Используем официальное изображение Node.js
 FROM node:18
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
 
-# Копируем package.json и package-lock.json
+# Копируем файлы package.json и package-lock.json (оптимизация кеша)
 COPY package*.json ./
 
 # Устанавливаем зависимости
@@ -13,8 +13,11 @@ RUN npm install
 # Копируем весь код проекта
 COPY . .
 
-# Открываем порт NestJS
-EXPOSE 3000
+# Собираем TypeScript в JavaScript
+RUN npm run build
 
-# Запускаем приложение
-CMD ["npm", "run", "start"]
+# Открываем порт
+EXPOSE 8080
+
+# Запускаем приложение в продакшн-режиме
+CMD ["npm", "run", "start:prod"]
