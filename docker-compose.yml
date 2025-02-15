@@ -12,6 +12,13 @@ services:
     env_file:
       - ./backend/.env
 
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
   postgres:
     image: postgres:15
     container_name: urlshortener-db
