@@ -1,1 +1,1 @@
-# URLShortener
+# URLShortener - функционал для создания коротких ссылок
