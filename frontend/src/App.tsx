@@ -3,6 +3,8 @@ import axios from "axios";
 import ShortenUrlForm from "./Shorten/ShortenUrlForm";
 import UrlList from "./Shorten/UrlList";
 import AnalyticsPanel from "./Shorten/AnalyticsPanel";
+import "./App.css"
+
 
 const API_URL = process.env.REACT_APP_API_URL || "http://localhost:8080/url";
 
