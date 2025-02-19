@@ -1,5 +1,6 @@
-import { Controller, Post, Get, Delete, Body, Param, NotFoundException } from '@nestjs/common';
+import { Controller, Post, Get, Delete, Body, Param, Req, NotFoundException } from '@nestjs/common';
 import { UrlService } from './url.service';
+import { Request } from 'express';
 
 @Controller('url')
 export class UrlController {
@@ -16,17 +17,18 @@ export class UrlController {
 
     @Get('/')
     async getAllUrls() {
-        return this.urlService.findAll(); // Предполагаем, что у тебя есть метод findAll в сервисе
+        return this.urlService.findAll();
     }
 
     @Get('/:shortUrl')
-    async redirect(@Param('shortUrl') shortUrl: string) {
-        return this.urlService.getOriginalUrl(shortUrl);
+    async redirect(@Param('shortUrl') shortUrl: string, @Req() request: Request) {
+        const ipAddress = request.ip || request.headers['x-forwarded-for'] || 'unknown';
+        return this.urlService.getOriginalUrl(shortUrl, ipAddress as string);
     }
 
     @Get('/info/:shortUrl')
     async getInfo(@Param('shortUrl') shortUrl: string) {
-        return this.urlService.getUrlInfo(shortUrl);
+        return this.urlService.getUrlStats(shortUrl);
     }
 
     @Delete('/delete/:shortUrl')
@@ -34,4 +36,10 @@ export class UrlController {
         await this.urlService.deleteShortUrl(shortUrl);
         return { message: 'Deleted successfully' };
     }
+
+    @Get('/analytics/:shortUrl')
+    async getAnalytics(@Param('shortUrl') shortUrl: string) {
+        return this.urlService.getAnalytics(shortUrl);
+    }
+
 }

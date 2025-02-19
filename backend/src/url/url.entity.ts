@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, OneToMany} from 'typeorm';
+import {VisitEntity} from "./visit.entity";
 
 @Entity('urls')
 export class UrlEntity {
@@ -22,4 +23,7 @@ export class UrlEntity {
 
     @Column({ default: 0 })
     clickCount: number;
+
+    @OneToMany(() => VisitEntity, (visit) => visit.url)
+    visits: VisitEntity[];
 }

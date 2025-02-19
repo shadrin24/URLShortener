@@ -9,14 +9,14 @@ interface ShortenUrlFormProps {
 
 const ShortenUrlForm: React.FC<ShortenUrlFormProps> = ({ onShorten }) => {
     const [originalUrl, setOriginalUrl] = useState("");
-    const [alias, setAlias] = useState(""); // Новое поле для алиаса
-    const [expiresAt, setExpiresAt] = useState(""); // Новое поле для даты окончания
+    const [alias, setAlias] = useState("");
+    const [expiresAt, setExpiresAt] = useState("");
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const response = await axios.post(`${API_URL}/shorten`, {
             originalUrl,
-            alias: alias || undefined, // Отправляем только если заполнено
+            alias: alias || undefined,
             expiresAt: expiresAt ? new Date(expiresAt).toISOString() : undefined,
         });
         onShorten(response.data);
@@ -26,29 +26,37 @@ const ShortenUrlForm: React.FC<ShortenUrlFormProps> = ({ onShorten }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="mb-4">
-            <input
-                type="text"
-                value={originalUrl}
-                onChange={(e) => setOriginalUrl(e.target.value)}
-                placeholder="Введите URL"
-                className="border p-2 w-full mb-2"
-            />
-            <input
-                type="text"
-                value={alias}
-                onChange={(e) => setAlias(e.target.value)}
-                placeholder="Введите алиас (необязательно)"
-                className="border p-2 w-full mb-2"
-            />
-            <input
-                type="date"
-                value={expiresAt}
-                onChange={(e) => setExpiresAt(e.target.value)}
-                className="border p-2 w-full mb-2"
-            />
-            <button type="submit" className="mt-2 bg-blue-500 text-white p-2 w-full">Сократить URL</button>
-        </form>
+        <div className="bg-white shadow-lg rounded-lg p-6 max-w-md mx-auto">
+            <h2 className="text-xl font-semibold mb-4 text-center text-gray-700">Сократить URL</h2>
+            <form onSubmit={handleSubmit} className="space-y-4">
+                <input
+                    type="text"
+                    value={originalUrl}
+                    onChange={(e) => setOriginalUrl(e.target.value)}
+                    placeholder="Введите URL"
+                    className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <input
+                    type="text"
+                    value={alias}
+                    onChange={(e) => setAlias(e.target.value)}
+                    placeholder="Введите алиас (необязательно)"
+                    className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <input
+                    type="date"
+                    value={expiresAt}
+                    onChange={(e) => setExpiresAt(e.target.value)}
+                    className="w-full p-3 border rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+                />
+                <button
+                    type="submit"
+                    className="w-full bg-blue-500 text-white p-3 rounded-lg shadow-md hover:bg-blue-600 transition duration-300 active:scale-95"
+                >
+                    Сократить URL
+                </button>
+            </form>
+        </div>
     );
 };
 
